@@ -1,0 +1,27 @@
+{
+    "name": "potter/irc-client-listener-provider",
+    "description": "PHP IRC Client Listener Provider",
+    "type": "library",
+    "require": {
+        "php": "^8.3",
+        "potter/listener-provider-interface": "dev-main"
+    },
+    "suggest": {
+        "potter/event": "dev-main",
+        "potter/components": "dev-main",
+        "potter/framework": "dev-main"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Potter\\Socket\\IRC\\Client\\": "src/Potter/Socket/IRC/Client/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jay Potter",
+            "email": "j@ypotter.ca"
+        }
+    ],
+    "minimum-stability": "dev"
+}
