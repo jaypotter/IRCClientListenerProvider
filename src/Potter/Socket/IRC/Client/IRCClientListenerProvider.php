@@ -10,6 +10,8 @@ use Potter\Event\EventInterface;
 
 final class IRCClientListenerProvider extends AbstractListenerProvider
 {
+    private string $pingToken;
+    
     public function getListenersForEvent(object $event): iterable
     {
         if (!($event instanceof EventInterface)) {
@@ -23,6 +25,17 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
                     $emitter->sendNickname();
                     $emitter->sendUsername();
                 }];
+                break;
+            case 'onReceive':
+                return [function (EventInterface $event) {
+                    $this->onReceive($event->getEmitter());
+                }];
+                break;
+            case 'onPing':
+                return [function (EventInterface $event) {
+                    $event->getEmitter()->pong($this->pingToken);
+                }];
+                break;
         }
     }
     
@@ -33,5 +46,17 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
         }
         
         return true;
+    }
+    
+    private function onReceive(EventInterface $event): void
+    {
+        $emitter = $event->getEmitter();
+        $split = explode(' :', $emitter->getLastMessage(), 2);
+        $left = $split[0];
+        $right = $split[1];
+        if ($left === "PING") {
+            $this->pingToken = $right;
+            $emitter->getEventDispatcher()->dispatch(new Event('onPing', $this));
+        }
     }
 }
