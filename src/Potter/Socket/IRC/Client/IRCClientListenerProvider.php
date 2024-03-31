@@ -20,8 +20,8 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
                 return [function (EventInterface $event) {
                     $emitter = $event->getEmitter();
                     $emitter->sendPassword();
-                    $emitter->sendNick();
-                    $emitter->sendUser();
+                    $emitter->sendNickname();
+                    $emitter->sendUsername();
                 }];
         }
     }
