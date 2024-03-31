@@ -50,7 +50,7 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
     private function onReceive(EventInterface $event): void
     {
         $emitter = $event->getEmitter();
-        $message = $emitter->getLastSocketMessage();
+        $message = $emitter->getLastMessage();
         if (!str_contains($message, ' :')) {
             return;
         }
