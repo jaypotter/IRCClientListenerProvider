@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Potter\Socket\IRC\Client;
+namespace Potter\Resource\IRC;
 
 use \Potter\Event\Listener\AbstractListenerProvider;
 use \Potter\Event\{EventInterface, Event};
