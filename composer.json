@@ -4,7 +4,8 @@
     "type": "library",
     "require": {
         "php": "^8.3",
-        "potter/listener-provider-interface": "dev-main"
+        "potter/listener-provider-interface": "dev-main",
+        "potter/event-interface": "dev-main"
     },
     "suggest": {
         "potter/event": "dev-main",
