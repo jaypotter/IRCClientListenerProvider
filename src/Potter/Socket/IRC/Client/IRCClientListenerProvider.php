@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Potter\Socket\IRC\Client;
 
 use \Potter\Event\Listener\AbstractListenerProvider;
-
-use Potter\Event\EventInterface;
+use \Potter\Event\{EventInterface, Event};
 
 final class IRCClientListenerProvider extends AbstractListenerProvider
 {
@@ -52,7 +51,7 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
     {
         $emitter = $event->getEmitter();
         $split = explode(' :', $message = $emitter->getLastSocketMessage(), 2);
-        echo $message;
+        echo $message . PHP_EOL;
         $left = $split[0];
         $right = $split[1];
         if ($left === "PING") {
