@@ -70,7 +70,7 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
         }
         $leftSide = explode(' ', $left);
         if ($leftSide[1] === "PRIVMSG") {
-            $sender = substr($leftSide[0], 1, strpos($leftSide[0], '!') + 1);
+            $sender = substr($leftSide[0], 1, strpos($leftSide[0], '!') - 2);
             $emitter->receivePrivateMessage($sender, $right);
             $eventDispatcher->dispatch(new Event('onPrivateMessage', $emitter));
         }
