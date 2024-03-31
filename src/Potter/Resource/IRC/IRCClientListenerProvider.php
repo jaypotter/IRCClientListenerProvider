@@ -55,7 +55,6 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
             return;
         }
         $split = explode(' :', $message, 2);
-        echo $message . PHP_EOL;
         $left = $split[0];
         $right = $split[1];
         if ($left === "PING") {
