@@ -18,7 +18,10 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
         switch ($event->getId()) {
             case 'onConnection':
                 return [function (EventInterface $event) {
-                    $event->getEmitter()->writeSocket('PASS abcdefghijk');
+                    $emitter = $event->getEmitter();
+                    $emitter->sendPassword();
+                    $emitter->sendNick();
+                    $emitter->sendUser();
                 }];
         }
     }
