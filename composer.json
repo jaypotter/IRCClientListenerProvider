@@ -5,7 +5,7 @@
     "require": {
         "php": "^8.3",
         "potter/listener-provider-interface": "dev-main",
-        "potter/event-interface": "dev-main"
+        "potter/event": "dev-main"
     },
     "suggest": {
         "potter/event": "dev-main",
