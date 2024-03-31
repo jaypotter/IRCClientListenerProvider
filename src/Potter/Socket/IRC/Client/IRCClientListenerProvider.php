@@ -50,7 +50,11 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
     private function onReceive(EventInterface $event): void
     {
         $emitter = $event->getEmitter();
-        $split = explode(' :', $message = $emitter->getLastSocketMessage(), 2);
+        $message = $emitter->getLastSocketMessage();
+        if (!str_contains($message, ' :')) {
+            return;
+        }
+        $split = explode(' :', $message, 2);
         echo $message . PHP_EOL;
         $left = $split[0];
         $right = $split[1];
