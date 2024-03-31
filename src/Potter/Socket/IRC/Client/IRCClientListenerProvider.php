@@ -56,7 +56,7 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
         $right = $split[1];
         if ($left === "PING") {
             $this->pingToken = $right;
-            $emitter->getEventDispatcher()->dispatch(new Event('onPing', $this));
+            $emitter->getEventDispatcher()->dispatch(new Event('onPing', $emitter));
         }
     }
 }
