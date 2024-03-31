@@ -35,6 +35,11 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
                     $event->getEmitter()->pong($this->pingToken);
                 }];
                 break;
+            case 'onPrivateMessage':
+                return [function (EventInterface $event) {
+                    echo 'RECEIVED PRIVATE MESSAGE FROM ' . $event->getEmitter()->getLastPrivateMessageSender() . PHP_EOL;
+                }];
+                break;
         }
     }
     
@@ -57,9 +62,17 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
         $split = explode(' :', $message, 2);
         $left = $split[0];
         $right = $split[1];
+        $eventDispatcher = $emitter->getEventDispatcher();
         if ($left === "PING") {
             $this->pingToken = $right;
-            $emitter->getEventDispatcher()->dispatch(new Event('onPing', $emitter));
+            $eventDispatcher->dispatch(new Event('onPing', $emitter));
+            return;
+        }
+        $leftSide = explode(' ', $left);
+        if ($leftSide[1] === "PRIVMSG") {
+            $sender = substr($leftSide[0], 1, strpos($leftSide[0], '!') + 1);
+            $emitter->receivePrivateMessage($sender, $right);
+            $eventDispatcher->dispatch(new Event('onPrivateMessage', $emitter));
         }
     }
 }
