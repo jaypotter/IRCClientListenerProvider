@@ -22,7 +22,7 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
                 break;
             case 'onReceive':
                 return [function (EventInterface $event) {
-                    $this->handleMessage();
+                    $event->getEmitter()->handleMessage();
                 }];
                 break;
             case 'onPing':
