@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Potter\Resource\IRC;
 
 use \Potter\Event\Listener\AbstractListenerProvider;
-use \Potter\Event\{EventInterface, Event};
+use \Potter\Event\EventInterface;
 
 final class IRCClientListenerProvider extends AbstractListenerProvider
 {    
@@ -35,7 +35,18 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
                     $event->getEmitter()->handlePrivateMessage();
                 }];
                 break;
+            case 'onReceiveMessageOfTheDay':
+                return [function (EventInterface $event) {
+                    $event->getEmitter()->handleMessageOfTheDay();
+                }];
+                break;
+            case 'onCompleteMessageOfTheDay':
+                return [function (EventInterface $event) {
+                    echo $event->getEmitter->getMessageOfTheDay();
+                }];
+                break;
         }
+        return [];
     }
     
     public function hasListenersForEvent(object $event): bool
