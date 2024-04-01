@@ -42,7 +42,7 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
                 break;
             case 'onCompleteMessageOfTheDay':
                 return [function (EventInterface $event) {
-                    echo $event->getEmitter->getMessageOfTheDay();
+                    echo $event->getEmitter()->getMessageOfTheDay();
                 }];
                 break;
         }
