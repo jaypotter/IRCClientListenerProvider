@@ -35,14 +35,9 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
                     $event->getEmitter()->handlePrivateMessage();
                 }];
                 break;
-            case 'onReceiveMessageOfTheDay':
+            case 'onMessageOfTheDay':
                 return [function (EventInterface $event) {
                     $event->getEmitter()->handleMessageOfTheDay();
-                }];
-                break;
-            case 'onCompleteMessageOfTheDay':
-                return [function (EventInterface $event) {
-                    echo $event->getEmitter()->getMessageOfTheDay();
                 }];
                 break;
         }
@@ -54,7 +49,8 @@ final class IRCClientListenerProvider extends AbstractListenerProvider
         if (!($event instanceof EventInterface)) {
             return false;
         }
-        
-        return true;
+        return in_array($event->getId(), [
+           'onConnection', 'onReceive', 'onPing', 'onMessageOfTheDay', 'onPrivateMessage'
+        ]);
     }
 }
